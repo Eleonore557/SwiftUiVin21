@@ -21,50 +21,66 @@ struct WineView: View {
     @State var when = ""
     @State var before = ""
     @State var rating = 0
-    @State private var sleepAmount = 0
-    @State private var comment: String = ""
+    @State var quantity = 0
+    @State var comment: String = ""
+    @State var selectorIndexOfWine = 0
+    @State var numbers = [Image("BouteilleDeVinRouge"), Image("BouteilleDeVinRose"), Image("BouteilleDeVinBlanc")]
 
     
     var body: some View {
-//            Text(wine.title)
-//            Button("Delete") {
-//                guard let wineId = wine.id else { return }
-//                model.deleteWine(id: wineId)
-//            }
-//            type: string, number: int, place: string, place: string, comment: string
-//            Button("Ajouter un vin") {
-//                let newWine = Wine(id: .none, title: title, producer: producer, region: region, millesime: millesime,cepage: cepage, when: when, before: before)
-//                model.add(wine: newWine)
-//            }.position(x: 60, y: -200)
-           
-            GroupBox {
+       
+        VStack{
+            Text("Ajouter un Vin")
+                .fontWeight(.bold)
+                .font(.title)
+            VStack {
+                GroupBox{
                 TextField("Nom", text: $title)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                
                 TextField("Producteur", text: $producer)          .textFieldStyle(RoundedBorderTextFieldStyle())
                 TextField("Localisation", text: $region)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 TextField("Cépage", text: $cepage)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 TextField("Millésime", text: $millesime)          .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+                HStack{
+                    Text("Quantité:")
+                Stepper(value: $quantity, in: 0...999999999) {
+                    Text("\(quantity)")
+                    }
+                }
+              
+                Picker("Numbers", selection: $selectorIndexOfWine) {
+                    ForEach(0 ..< numbers.count) { index in
+                        self.numbers[index].tag(index)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+            }
+            DropDownView()
+            GroupBox{
                 TextField("A boire", text: $when)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 TextField("A boire avant", text: $before)          .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                
-            }
-        DropDownView()
-            RatingView(rating: $rating)
-            Stepper(value: $sleepAmount, in: 0...999999999) {
-                Text("\(sleepAmount)")
-                HStack {
-                    Text("Commentaire")
-                    TextField("Commentaire", text: $comment)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                  
-        }
-       
-    }
-}
-   
+                }
+                HStack{
+                    Text("Note:")
+                    RatingView(rating: $rating)
+                }
+           
+                }
 
-}
+                HStack {
+                            Text("Commentaire:")
+                            TextField("Commentaire", text: $comment)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                Button("Ajouter un vin") {
+                    let newWine = Wine(id: .none, title: title, producer: producer, region: region, cepage: cepage, millesime: millesime, when: when, before: before, rating: rating, quantity: quantity, comment: comment, selectorIndexOfWine: selectorIndexOfWine)
+                    model.add(wine: newWine)
+                }.position(x: 300, y: 20)
+        }
+    }
+

@@ -21,14 +21,19 @@ struct ContentView: View {
         VStack {
             
             if (model.user?.email == .none) {
-                Text("Hello, world!")
-                    .padding()
+                Text("Tchin, User!")
+                    .position(x:310)
             } else {
                 Text("Tchin, \(model.user!.email!)!")
                     .position(x: 250, y: 0)
             }
             
             
+            Image("Logo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 130.0, height: 50.0)
+                .position(x: 60, y: 0)
             
             WineView(model: model)
             

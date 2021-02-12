@@ -15,14 +15,15 @@ struct Wine: Identifiable, Codable {
     let title: String
     let producer: String
     let region: String
-    let type: String
-    let millesime: String
-    let number: Int
-    let place: String
-    let comment: String
     let cepage: String
+    let millesime: String
     let when: String
     let before: String
+    let rating: Int
+    let quantity: Int
+    let comment: String
+    let selectorIndexOfWine : Int
+
     
     static func test() -> Wine {
         Wine(
@@ -30,14 +31,15 @@ struct Wine: Identifiable, Codable {
             title: "",
             producer: "",
             region: "",
-            type: "",
-            millesime: "",
-            number: 1,
-            place: "Étagère 1",
-            comment: "",
             cepage: "",
+            millesime: "",
             when: "",
-            before: ""
+            before: "",
+            rating: 0,
+            quantity: 0,
+            comment: "",
+            selectorIndexOfWine: 0
+       
         )
     }
 }

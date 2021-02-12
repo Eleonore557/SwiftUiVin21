@@ -28,7 +28,7 @@ struct DropDown: View {
     var body: some View {
         VStack(spacing: 30) {
             HStack() {
-                Text("Menu")
+                Text("Etagère")
                     .fontWeight(.bold)
                     .foregroundColor(.black)
                 Image(systemName: expand ? "chevron.up" : "chevron.down")
